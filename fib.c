@@ -16,50 +16,22 @@ int main(int argc, char *argv[]) {
     //get rid of compiler error for not using argc parameter
     (void)argc;
 
-    int file_contents_number, j = 0;
-    unsigned long long user_input, total_number;
+    unsigned long long user_input;
     
-    char fibonacci_method, file_name[50], file_contents[1000];
-
-    FILE *open_file;
+    char fibonacci_method;
 
     // User input integer
-    sscanf(argv[1], "%d", &user_input);
+    sscanf(argv[1], "%lld", &user_input);
 
     // Iterative or recursive method
     fibonacci_method = argv[2][0];
 
-    // File name input
-    strncpy(file_name, argv[3], sizeof(file_name));
-
-    open_file = fopen(file_name, "r");
-    if (open_file == NULL) {
-        return EXIT_FAILURE;
-    }
-
-    // Read the contents of the file
-    fgets(file_contents, sizeof(file_contents), open_file);
-
-    //Isolate integer as string 
-    for (int i = 0; file_contents[i] != '\0'; i++) {
-        if (file_contents[i] != '"') {
-            file_contents[j++] = file_contents[i];
-
-        }
-    }
-    file_contents[j] = '\0';
-
-    file_contents_number = atoi(file_contents);
-
-    total_number = user_input + file_contents_number;
-
     if (fibonacci_method == 'i') {
-        printf("%lld", iterative_fibonacci(total_number));
+        printf("%lld", iterative_fibonacci(user_input));
     } else {
-        printf("%lld", recursive_fibonacci(total_number));
+        printf("%lld", recursive_fibonacci(user_input));
     }
 
-    fclose(open_file);
     return 0;
 }
 
